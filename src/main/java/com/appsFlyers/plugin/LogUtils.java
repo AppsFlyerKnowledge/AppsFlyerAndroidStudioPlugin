@@ -31,4 +31,30 @@ public class LogUtils {
 
             String jsonPart = logText.substring(jsonStartIndex, jsonEndIndex).trim();
 
+            switch (type) {
+                case "CONVERSION", "LAUNCH" -> {
+                    JsonObject jsonObject = JsonParser.parseString(jsonPart).getAsJsonObject();
+                    return jsonObject.has("uid") ? "UID: " + jsonObject.get("uid").getAsString() : "UID Not Found";
+                }
+                case "EVENT" -> {
+                    JsonObject jsonObject = JsonParser.parseString(jsonPart).getAsJsonObject();
+                    String eventName = jsonObject.has("eventName") ? jsonObject.get("eventName").getAsString() : "Event Name Not Found";
+                    String eventData = jsonObject.has("eventValue") ? jsonObject.get("eventValue").getAsString() : "Event Value Not Found";
+                    return "\n{" + "\n" + " \"eventName\":" + '\"' + eventName + '\"' + "," + "\n" + " \"eventValue\":" + '\"' + eventData + '\"' + "\n" + "}";
+                }
+                case "DEEPLINK" -> {
+                    return jsonPart;
+                }
+            }
+            return null;
+
+        } catch (JsonSyntaxException e) {
+            System.err.println("JSON parsing error: " + e.getMessage());
+            return null;
+        } catch (Exception e) {
+            System.err.println("Unexpected error: " + e.getMessage());
+            return null;
+        }
+    }
+
 }
