@@ -1,0 +1,34 @@
+<idea-plugin>
+
+    <id>com.example.plugin</id>
+    <name>AppsFlyer LogCat Analyzer</name>
+    <vendor email="israelmanor11@domain.com" url="https://www.appsflyer.com">appsflyer</vendor>
+    <description><![CDATA[
+    This plugin helps developers efficiently search and filter logs within the IDE. It integrates with your application and provides easy access to log data.
+    <em>Supports various log filtering options.</em>
+    ]]></description>
+
+    <!-- Keep only IntelliJ Platform dependency -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
+
+    <!-- Notification group definition -->
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow
+                id="AppsFlyer LogCat Analyzer"
+                anchor="right"
+                secondary="true"
+                icon="/icons/appsflyer.svg"
+                factoryClass="com.appsFlyers.plugin.UI.LogToolWindowFactory"/>
+    </extensions>
+
+
+    <actions>
+        <action id="com.appsFlyers.plugin.actions.ClearLogsAction"
+                class="com.appsFlyers.plugin.actions.ClearLogsAction"
+                text="Clear Logs"
+                description="Cleler all logs"/>
+
+    </actions>
+
+</idea-plugin>
